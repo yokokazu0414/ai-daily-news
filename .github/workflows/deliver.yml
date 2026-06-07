@@ -1,0 +1,24 @@
+name: Deliver AI Daily News
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Tokyo
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTION_PARENT: ${{ secrets.NOTION_PARENT }}
+      NOTION_DB: ${{ secrets.NOTION_DB }}
+      GMAIL_USER: ${{ secrets.GMAIL_USER }}
+      GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 morning_delivery.py
