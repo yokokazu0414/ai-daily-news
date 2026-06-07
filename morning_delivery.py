@@ -21,7 +21,8 @@ from email.mime.text import MIMEText
 from datetime import datetime
 from pathlib import Path
 
-REPO_DIR = Path("/Users/kazunari/VibeMaker/ai_management/agents/research/AI_Daily_News")
+# スクリプト自身の置き場所を基準にする（ローカルMac・GitHub Actions 両対応）
+REPO_DIR = Path(__file__).resolve().parent
 
 
 def load_env():
