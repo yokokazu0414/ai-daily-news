@@ -62,9 +62,10 @@ def git_pull():
 
 def get_today_md():
     today = datetime.now().strftime("%Y-%m-%d")
-    path = REPO_DIR / f"{today}_ai-news.md"
-    if path.exists():
-        return today, path.read_text(encoding="utf-8")
+    # 日次mdは news_md/ に格納（ルート直下は使わない）。旧パスもフォールバックで見る。
+    for path in (REPO_DIR / "news_md" / f"{today}_ai-news.md", REPO_DIR / f"{today}_ai-news.md"):
+        if path.exists():
+            return today, path.read_text(encoding="utf-8")
     return today, None
 
 
